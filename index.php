@@ -32,7 +32,7 @@
   <div>
     <form action="" method="get">
 
-      <input type=text name="password_lenght" id="password_lenght" placeholder="Desired Password Lenght">
+      <input type="number" min="1" name="password_lenght" id="password_lenght" placeholder="Desired Password Lenght">
       
       <button type="submit">Generate Password</button>
 
