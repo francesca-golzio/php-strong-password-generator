@@ -1,6 +1,9 @@
 <?php
 
+  /* If parameter password_lenght is set, save it */
+ (isset($_GET['password_lenght']) && (int)$_GET['password_lenght'] > 0) ? $password_lenght = (int)$_GET['password_lenght'] : $password_lenght = null;
 
+  var_dump($password_lenght);
 
 ?>
 
