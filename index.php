@@ -1,10 +1,3 @@
-<?php
-
-  // Get password generator function `generatePassword()`
-  require __DIR__ . '/functions.php'
-
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -26,7 +19,7 @@
   
   <div class="container">
 
-    <form action="" method="get">
+    <form action="./your-password.php" method="post">
 
       <div>
         <label for="password_length">How many characters?</label>
@@ -37,25 +30,6 @@
 
     </form>
     
-    <div class="password_container">
-      <p id="password" class="password">
-        <?php echo strlen(generatePassword()) > 0 ? generatePassword() : '<small>-- password will be printed here --</small>' ?>
-      </p>
-
-      <?php echo strlen(generatePassword()) > 0 
-        ? 
-        "<p id='show_length'>
-          <small>
-            Password length: 
-            <span id='length'>" . strlen(generatePassword()) .
-            "</span>
-          </small>
-        </p>" 
-        : 
-        '' 
-      ?>
-
-    </div>
 
   </div>    
 
