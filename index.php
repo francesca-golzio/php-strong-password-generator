@@ -1,3 +1,21 @@
+<?php
+
+  // Open session
+  session_start();
+
+  // Save form data into session
+  if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
+    // get password_length if properly setted
+    $_SESSION['password_length'] =  (isset($_POST['password_length']) && (int)$_POST['password_length'] > 0) ? (int)$_POST['password_length'] : null;
+
+    header('Location: your-password.php');
+    exit;
+
+  }
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -19,7 +37,7 @@
   
   <div class="container">
 
-    <form action="./your-password.php" method="post">
+    <form method="post">
 
       <div>
         <label for="password_length">How many characters?</label>

@@ -3,17 +3,17 @@
   // Resume session
   session_start();
 
-  // Get password_length if properly setted
-  $password_length = (isset($_POST['password_length']) && (int)$_POST['password_length'] > 0) ? (int)$_POST['password_length'] : null;
-
-  // Store variables into session
-  $_SESSION['password_length'] = $password_length;
+  // Get session variables
+  $password_length = $_SESSION['password_length'] ?? null;
 
   // Get password generator function `generatePassword()
   require __DIR__ . '/functions.php';
 
   // Store password into a variable
-  $password = generatePassword($_SESSION['password_length']);
+  $password = generatePassword($password_length);
+
+  // Set support variable
+  $has_password = strlen($password) > 0;
 
 ?>
 
@@ -41,10 +41,10 @@
     <!-- ⚠️ DA SPAZIARE -->
     <div class="password_container">
       <p id="password" class="password">
-        <?php echo strlen($password) > 0 ? $password : '<small>-- password will be printed here --</small>' ?>
+        <?php echo $has_password ? $password : '<small>-- password will be printed here --</small>' ?>
       </p> 
 
-      <?php echo strlen($password) > 0 
+      <?php echo $has_password
         ? 
         "<p id='show_length'>
           <small>
