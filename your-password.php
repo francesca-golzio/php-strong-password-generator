@@ -5,16 +5,13 @@ session_start();
 
 // Get session variables
 $password_length = $_SESSION['password_length'] ?? null;
-$has_requested_chars = $_SESSION['has_requested_chars'] ?? 'Error, no requested chars';
+$has_requested_chars = $_SESSION['has_requested_chars'] ?? null;
 
 // Get password generator function `generatePassword()
 require __DIR__ . '/functions.php';
 
-// Set chars array
-$requested_chars = setChars($has_requested_chars);
-
 // Store password into a variable
-$password = generatePassword($password_length, $requested_chars);
+$password = generatePassword($has_requested_chars, $password_length);
 
 // Set support variable
 $has_length = strlen($password) > 0;
