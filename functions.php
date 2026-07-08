@@ -71,17 +71,31 @@
 
         // push a random spec_char to the temp_password array
         array_push($temp_password, getRandomChar($spec_char));
-
+        
       }
-      
+        
     }
+        
 
     // Get password characters by characters
-    while (count($temp_password) < $length) { 
+    // ⚠️⚠️⚠️⚠️⚠️ develop only, should be coming via session < form
+    $repeated_chars_allowed = false;
 
-      // Add new char to temp_password
-      array_push($temp_password, getRandomChar($chars));
+    while (count($temp_password) < $length) { 
       
+      // get random char
+      $random = getRandomChar($spec_char);
+     
+      // IF chars must be unique, but char is already in temp_password
+      if (!$repeated_chars_allowed && in_array($random, $temp_password)) {
+
+        // skip char
+        continue;
+      } 
+
+      // add new char to temp_password
+      array_push($temp_password, $random);
+
     }
 
     // Shuffle temp_password chars 
@@ -94,6 +108,5 @@
     return $password;
 
   }
-  //var_dump(generatePassword());
 
 ?>
