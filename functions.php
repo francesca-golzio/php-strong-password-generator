@@ -84,7 +84,7 @@
     while (count($temp_password) < $length) { 
       
       // get random char
-      $random = getRandomChar($spec_char);
+      $random = getRandomChar($chars);
      
       // IF chars must be unique, but char is already in temp_password
       if (!$repeated_chars_allowed && in_array($random, $temp_password)) {
