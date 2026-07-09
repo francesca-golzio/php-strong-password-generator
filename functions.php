@@ -14,7 +14,7 @@
   }
 
   // Generate Password
-  function generatePassword($has_requested_chars, $length) {
+  function generatePassword($has_requested_chars, $length, $repeated_chars_allowed) {
 
     // Define password possible characters  
     $alpha_low_char = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']; 
@@ -78,8 +78,6 @@
         
 
     // Get password characters by characters
-    // ⚠️⚠️⚠️⚠️⚠️ develop only, should be coming via session < form
-    $repeated_chars_allowed = false;
 
     while (count($temp_password) < $length) { 
       

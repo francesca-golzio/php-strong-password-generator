@@ -4,14 +4,43 @@
 session_start();
 
 // Get session variables
-$password_length = $_SESSION['password_length'] ?? null;
-$has_requested_chars = $_SESSION['has_requested_chars'] ?? null;
+
+// get password settings
+$password_settings = $_SESSION['password_settings'] 
+  ?? [
+      'password_length' => 8,
+      'repeated_chars_allowed' => false,
+      'has_requested_chars' => [
+        'wants_alpha_low_char' => true,
+        'wants_alpha_up_char' => true,
+        'wants_numb_char' => true,
+        'wants_spec_char' => true,
+      ],
+    ];
+
+// get password length
+$password_length = $password_settings['password_length'] ?? 8;
+
+// get repeated chars allowed ?
+$repeated_chars_allowed = $password_settings['repeated_chars_allowed'] ?? false;
+
+// get requested chars
+// IF at least one char is requested and true
+$has_requested_chars = (!empty($password_settings['has_requested_chars']) && !empty(array_filter($password_settings['has_requested_chars']))) 
+  ? $password_settings['has_requested_chars'] 
+  : [
+      'wants_alpha_low_char' => true,
+      'wants_alpha_up_char' => true,
+      'wants_numb_char' => true,
+      'wants_spec_char' => true,
+    ];
+ 
 
 // Get password generator function `generatePassword()
 require __DIR__ . '/functions.php';
 
 // Store password into a variable
-$password = generatePassword($has_requested_chars, $password_length);
+$password = generatePassword($has_requested_chars, $password_length, $repeated_chars_allowed);
 
 // Set support variable
 $has_length = strlen($password) > 0;
