@@ -55,64 +55,95 @@
 </head>
 <body>
   
-<header>
-  <h1>Password Generator</h1>
-</header>
+
 
 <main>
   
-  <div class="container">
+  <div class="outer_container">
+    <div class="container">
 
-    <form method="post">
+      <form method="post">
 
-      <!-- Password Length -->
-      <div class="password_length">
-        <label for="password_length">
-          How many characters?
-          <input type="number" min="8" name="password_length" id="password_length" placeholder="E.g. 10">
-        </label>
-      </div>
+        <header>
+          <h1>Password Generator</h1>
+        </header>
 
-      <!-- Unique characters? -->
-      <fieldset id="repeated_chars">
+        <!-- Password Length -->
+        <div class="password_length">
+          <label for="password_length">How many characters?</label>
+          <div class="password_length_span">
+            <span>8</span>
+            <div class="ruler_slider_container">
+              <div class="ruler">
+                <small class="tick">12</small>
+                <small class="tick">16</small>
+                <small class="tick">20</small>
+                <small class="tick">24</small>
+                <small class="tick">28</small>
+              </div>
+              <input type="range" name="password_length" id="password_length" min="8" max="32" list="ticks" step="1">
+            </div>
+            <span>32</span>
+          </div>
+        </div>
 
-        <legend>Do you want to allow repeated characters?</legend>
+        <!-- Unique characters? -->
+        <div class="repeated_chars">
 
-        <input type="radio" name="repeated_chars_allowed" id="repeated_chars_yes" value="true">
-        <label for="repeated_chars_yes">yes</label>
+          <label>Do you want to allow repeated characters?</label>
 
-        <input type="radio" name="repeated_chars_allowed" id="repeated_chars_no" value="false">
-        <label for="repeated_chars_no">no</label>
-
-      </fieldset>
-
-      <!-- Choose Characters Type -->
-      <fieldset id="char_type">
-
-        <legend>Which kind of characters?</legend>
-          
-        <!-- a, b, c -->
-        <input type="checkbox" name="get_alpha_low_char" id="get_alpha_low_char">
-        <label for="get_alpha_low_char" aria-label="Lowercase Letters">a-z</label>
-        
-        <!-- A, B, C -->
-        <input type="checkbox" name="get_alpha_up_char" id="get_alpha_up_char">
-        <label for="get_alpha_up_char" aria-label="Uppercase Letters">A-Z</label>
-        
-        <!-- 1, 2, 3 -->
-        <input type="checkbox" name="get_numb_char" id="get_numb_char">
-        <label for="get_numb_char" aria-label="Numbers">1-2-3</label>
-        
-        <!-- !, @, # -->
-        <input type="checkbox" name="get_spec_char" id="get_spec_char">
-        <label for="get_spec_char" aria-label="Special Characters">@ # ! ? _ *</label>
-        
-      </fieldset>
-      
-      <button type="submit">Generate Password</button>
-      
-    </form>
+          <div class="repeated_chars_options">
+            <label for="repeated_chars_yes">
+              yes
+              <input type="radio" name="repeated_chars_allowed" id="repeated_chars_yes" value="true">
+            </label>
     
+            <label for="repeated_chars_no">
+              no
+              <input type="radio" name="repeated_chars_allowed" id="repeated_chars_no" value="false">
+            </label>
+          </div>
+
+        </div>
+
+        <!-- Choose Characters Type -->
+        <div class="char_type">
+
+          <label>Which kind of characters?</label>
+            
+          <div class="char_type_options">
+            <!-- a, b, c -->
+            <div>
+              <input type="checkbox" name="get_alpha_low_char" id="get_alpha_low_char">
+              <label for="get_alpha_low_char" aria-label="Lowercase Letters">a b c</label>
+            </div>
+            
+            <!-- A, B, C -->
+            <div>
+              <input type="checkbox" name="get_alpha_up_char" id="get_alpha_up_char">
+              <label for="get_alpha_up_char" aria-label="Uppercase Letters">A B C</label>
+            </div>
+            
+            <!-- 1, 2, 3 -->
+            <div>
+              <input type="checkbox" name="get_numb_char" id="get_numb_char">
+              <label for="get_numb_char" aria-label="Numbers">1 2 3</label>
+            </div>
+            
+            <!-- !, @, # -->
+            <div>
+              <input type="checkbox" name="get_spec_char" id="get_spec_char">
+              <label for="get_spec_char" aria-label="Special Characters">@ # !</label>
+            </div>
+          </div>
+          
+        </div>
+        
+        <button type="submit">Generate Password</button>
+        
+      </form>
+      
+    </div>    
   </div>    
   
   <!-- <?php var_dump($_SESSION); ?>⚠️ DEBUG ONLY -->
