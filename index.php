@@ -1,8 +1,10 @@
-<?php
- 
+<?php 
 
   // Open session
   session_start();
+
+  // Declare support variables
+  $length_error = '';
 
   // Save form data into session
   if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -10,7 +12,7 @@
     // save password settings
     $_SESSION['password_settings'] = [
 
-      'password_length' => (isset($_POST['password_length']) && (int)$_POST['password_length'] > 0) ? (int)$_POST['password_length'] : 8,
+      'password_length' => (isset($_POST['password_length']) && (int)$_POST['password_length'] >= 8 && (int)$_POST['password_length'] <= 32) ? (int)$_POST['password_length'] : 8,
 
       'repeated_chars_allowed' => (isset($_POST['repeated_chars_allowed']) && $_POST['repeated_chars_allowed'] === 'true') ? true : false,
 
@@ -32,15 +34,53 @@
       ];
     }
 
-    
-    // handle redirect 
-    header('Location: your-password.php');
-    // stop script
-    exit;
-    
+    // Guard against infinite loop
+    // if chars must be unique
+    if($_SESSION['password_settings']['repeated_chars_allowed'] === false) {
+
+      // reset chars pool length
+      $chars_pool_length = 0;
+
+      // get allowed chars pool length
+      foreach(array_filter($_SESSION['password_settings']['has_requested_chars']) as $key => $value) {
+         
+        if ($key === 'wants_alpha_low_char') $chars_pool_length += 26;
+        if ($key === 'wants_alpha_up_char') $chars_pool_length += 26;
+        if ($key === 'wants_numb_char') $chars_pool_length += 10;
+        if ($key === 'wants_spec_char') $chars_pool_length += 6;
+
+      }
+        
+      // show error message
+      if ($_SESSION['password_settings']['password_length'] > $chars_pool_length) {
+
+      $length_error = 
+        "<dialog open>
+          <p>Not enough characters to generate password. Please reduce password length or enable repeated characters.</p>
+          <form method='dialog'>
+            <button>
+              OK
+            </button>
+          </form>
+        </dialog>";
+      }
     }
     
-    ?>
+    if ($length_error === '') {
+      
+      // Certify that form has been submitted
+      $_SESSION['form-submitted'] = true;
+      
+      // handle redirect 
+      header('Location: your-password.php');
+      // stop script
+      exit;
+
+    }
+    
+  }
+    
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -54,6 +94,8 @@
   <title>Password Generator</title>
 </head>
 <body>
+
+  <?php echo $length_error; ?>
 
   <main>
     

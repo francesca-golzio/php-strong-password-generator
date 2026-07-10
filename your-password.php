@@ -3,7 +3,15 @@
 // Resume session
 session_start();
 
-// Get session variables
+// If origin differs from form submission
+if(!isset($_SESSION['form-submitted'])) {
+
+  // redirect to form
+  header('Location: index.php');
+
+  // stop script
+  exit;
+} 
 
 // get password settings
 $password_settings = $_SESSION['password_settings'] 
