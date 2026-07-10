@@ -1,26 +1,64 @@
-/* CSS Reset */
+/* __ Import fonts __ */
+
+@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+
+/* __ CSS Reset __ */
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-/* Custom color palette */
+
+/* __ Custom color palette __ */
+
 :root {
   --dark-color: #020210;
   --light-color: #ede5c4;
   --bg-color: #070d4a;
+  --bg-color-light: #a4abf5;
   --accent-color: #e1cf04;
-  --gray-color: #607566;
+  /* --gray-color: #607566; */
 }
 
-/* Commons */
+
+/* __ Commons __ */
+
+/* Body */
+
 body {
   color: var(--light-color);
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: "Poppins", sans-serif;
   background-color: var(--bg-color);
-  transition: all 0.3s ease, text 0.4s;
+  transition: all 0.5s ease, text 0.6s;
+  height: 100%;
+  width: 100vw;
 }
+
+/* Buttons */
+
+button {
+  appearance: none;
+  color: var(--accent-color);
+  font-size: inherit;
+  font-weight: bold;
+  background-color: var(--dark-color);
+  border: 1px solid var(--accent-color);
+  padding: 1rem 2rem;
+  margin: 1rem;
+  border-radius: 1.25rem;
+  align-self: center;
+  cursor: pointer;
+}
+
+button:hover {
+  color: var(--dark-color);
+  background-color: var(--accent-color);
+}
+
+/* Inputs */
 
 input {
   color: var(--accent-color);
@@ -33,31 +71,36 @@ input:hover {
   cursor: pointer;
 }
 
-/* Header */
-header {
+/* Headings */
+
+div.heading {
+  font-family: "Josefin Sans", sans-serif;
+  font-optical-sizing: auto;
   flex-direction: column;
   align-items: center;
   background-color: var(--dark-color);
   display: flex;
-
-  h1 {
-    color: var(--accent-color);
-    padding: 1.5rem;
-    text-align: center;
-  }
-
-  h2 {
-    color: var(--accent-color);
-    text-align: right;
-    align-self: flex-end;
-    padding: 0 1rem 0.5rem 1rem;
-  }
 }
 
-/* Main */
+h1 {
+  color: var(--accent-color);
+  padding: 1.5rem;
+  text-align: center;
+}
+
+h2 {
+  color: var(--bg-color-light);
+  text-align: right;
+  align-self: flex-end;
+  padding: 0 1rem 0.5rem 1rem;
+}
+
+/* Containers */
+
 .outer_container {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
   margin: 0 auto;
 }
 
@@ -75,12 +118,19 @@ header {
   max-width: 800px;
 }
 
+
+/* __ index.php __ */
+
 /* Form */
+
 form {
   display: flex;
   flex-direction: column;
 }
 
+/* form fields */
+
+/* outer containers */
 div.password_length,
 div.repeated_chars,
 div.char_type {
@@ -90,6 +140,7 @@ div.char_type {
   padding: 1.5rem 0;
 }
 
+/* input containers */
 div.password_length_span,
 div.repeated_chars_options,
 div.char_type_options {
@@ -103,89 +154,96 @@ div.char_type_options {
   width: 100%;
 }
 
+/* password length field - slider & ruler*/
+
+/* outer container */
 div.password_length_span {
   color: var(--accent-color);
   flex-wrap: nowrap;
   gap: 1rem;
 }
 
+/* inner container */
 div.ruler_slider_container {
   display: flex;
   flex-direction: column;
   align-items: center;
   width: 80%;
 
+  /* ruler */
+  div.ruler {
+    display: flex;
+    justify-content: space-evenly;
+    width: 100%;
+    padding-bottom: 0.25rem;
+
+    /* numbered labels */
+    small {
+      color: var(--accent-color);
+      padding: 0;
+    }
+
+  }
+
+  /* slider */
   input[type="range"] {
     width: 100%;
   }
 
 }
 
-div.ruler {
-  display: flex;
-  justify-content: space-evenly;
-  width: 100%;
-  padding-bottom: 0.25rem;
 
-  small {
-    color: var(--accent-color);
-    padding: 0;
-  }
+/* __ your_password.php __ */
 
-}
+/* Password section */
 
-button {
-  appearance: none;
-  color: var(--accent-color);
-  font-size: inherit;
-  font-weight: bold;
-  background-color: var(--dark-color);
-  border: 1px solid var(--accent-color);
-  padding: 1rem 2rem;
-  margin: 1rem;
-  border-radius: 1.25rem;
-  align-self: center;
-  /* width: 80%; */
-  cursor: pointer;
-}
-
-button:hover {
-  color: var(--dark-color);
-  background-color: var(--accent-color);
-}
-
-/* Password */
 .password_container {
   text-align: center;
   min-width: 90%;
+  margin-bottom: 1rem;
 }
 
 p.password {
-  color: var(--dark-color);
+  color: var(--bg-color-light);
   font-size: 2rem;
   letter-spacing: 0.75rem;
   white-space: nowrap;
-  font-weight: bold;
-  background-color: var(--light-color);
+  /* font-weight: bold; */
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 1rem 0.75rem 1rem 1.25rem;
-  border: 1px solid var(--dark-color);
+  padding: 1rem 1.25rem;
+  border: 1px solid var(--accent-color);
   border-radius: 1.5rem;
 }
 
+/* password settings recap */
+
+.password_settings_recap {
+  color: var(--bg-color-light);
+  font-size: 0.9rem;
+  line-height: 1.5rem;
+  text-align: right;
+
+  span {
+    color: var(--accent-color);
+    white-space: nowrap;
+  }
+
+}
+
+.note {
+  color: var(--bg-color-light);
+  font-size: 0.6rem;
+  font-style: italic;
+  text-align: left;
+  margin: 1rem 0;
+  max-width: 800px;
+}
+
 small {
+  color: var(--accent-color);
   font-size: 0.75rem;
   letter-spacing: 0.1rem;
   padding-right: 0.5rem;
-
-  span {
-    font-size: 1rem;
-  }
-}
-
-#show_length {
-  color: var(--accent-color);
-  text-align: right;
 }
