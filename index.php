@@ -55,13 +55,13 @@
       if ($_SESSION['password_settings']['password_length'] > $chars_pool_length) {
 
       $length_error = 
-        "<dialog open>
-          <p>Not enough characters to generate password. Please reduce password length or enable repeated characters.</p>
-          <form method='dialog'>
-            <button>
-              OK
-            </button>
-          </form>
+        "<dialog class='error_message' open>
+        <p>Not enough characters to generate password.<br><br>
+        <span>Please reduce password length or enable repeated characters.</span>
+        </p>
+        <form method='dialog'>
+          <button class='close'>OK</button>
+        </form>
         </dialog>";
       }
     }
@@ -94,14 +94,15 @@
   <title>Password Generator</title>
 </head>
 <body>
-
-  <?php echo $length_error; ?>
-
+  
   <main>
     
     <div class="outer_container">
+      
       <div class="container">
-
+        
+        <?php echo $length_error; ?>
+        
         <form method="post">
 
           <div class="heading">

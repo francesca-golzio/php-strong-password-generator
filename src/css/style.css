@@ -192,6 +192,45 @@ div.ruler_slider_container {
 
 }
 
+/* Error message dialog */
+.error_message {
+  color: var(--light-color);
+  font-size: 1rem;
+  font-weight: 600;
+  background-color: var(--dark-color);
+  border: 1px solid var(--bg-color-light);
+  border-radius: 1.75rem;
+  max-width: 300px;
+  padding: 1.25rem 1.75rem;
+  margin: 30vh auto;
+
+  p {
+    text-align: center;
+
+    span {
+      font-size: 0.75rem;
+      font-style: italic;
+      font-weight: 400;
+    }
+
+  }
+
+}
+
+button.close {
+  color: var(--bg-color-light);
+  border: 1px solid var(--bg-color-light);
+  border-radius: 8px;
+  aspect-ratio: 1/1;
+  padding: 0.25rem;
+  margin: 0;
+  margin-top: 1.25rem;
+}
+
+button.close:hover {
+  color: var(--dark-color);
+  background-color: var(--bg-color-light);
+}
 
 /* __ your_password.php __ */
 
