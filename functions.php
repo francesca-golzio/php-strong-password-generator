@@ -14,7 +14,26 @@
   }
 
   // Generate Password
-  function generatePassword($has_requested_chars, $length, $repeated_chars_allowed) {
+  function generatePassword($array) {
+
+    // Get variables from array
+
+    // get password length
+    $password_length = $array['password_length'] ?? 8;
+
+    // get repeated chars allowed ?
+    $repeated_chars_allowed = $array['repeated_chars_allowed'] ?? false;
+
+    // get requested chars
+    // IF at least one char is requested and true
+    $has_requested_chars = (!empty($array['has_requested_chars']) && !empty(array_filter($array['has_requested_chars']))) 
+      ? $array['has_requested_chars'] 
+      : [
+        'wants_alpha_low_char' => true,
+        'wants_alpha_up_char' => true,
+        'wants_numb_char' => true,
+        'wants_spec_char' => true,
+        ];
 
     // Define password possible characters  
     $alpha_low_char = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']; 
@@ -79,7 +98,7 @@
 
     // Get password characters by characters
 
-    while (count($temp_password) < $length) { 
+    while (count($temp_password) < $password_length) { 
       
       // get random char
       $random = getRandomChar($chars);

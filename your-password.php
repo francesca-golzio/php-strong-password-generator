@@ -27,7 +27,7 @@ $password_settings = $_SESSION['password_settings']
     ];
 
 // get password length
-$password_length = $password_settings['password_length'] ?? 8;
+// $password_length = $password_settings['password_length'] ?? 8;
 
 // get repeated chars allowed ?
 $repeated_chars_allowed = $password_settings['repeated_chars_allowed'] ?? false;
@@ -47,7 +47,7 @@ $has_requested_chars = (!empty($password_settings['has_requested_chars']) && !em
 require __DIR__ . '/functions.php';
 
 // Store password into a variable
-$password = generatePassword($has_requested_chars, $password_length, $repeated_chars_allowed);
+$password = generatePassword($password_settings);
 
 // Set support variable
 $has_length = strlen($password) > 0;
