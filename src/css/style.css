@@ -20,7 +20,6 @@
   --bg-color: #070d4a;
   --bg-color-light: #a4abf5;
   --accent-color: #e1cf04;
-  /* --gray-color: #607566; */
 }
 
 
@@ -32,9 +31,9 @@ body {
   color: var(--light-color);
   font-family: "Poppins", sans-serif;
   background-color: var(--bg-color);
-  transition: all 0.5s ease, text 0.6s;
   height: 100%;
   width: 100vw;
+  transition: all 0.5s ease, text 0.6s;
 }
 
 /* Buttons */
@@ -45,11 +44,11 @@ button {
   font-size: inherit;
   font-weight: bold;
   background-color: var(--dark-color);
+  align-self: center;
   border: 1px solid var(--accent-color);
+  border-radius: 1.25rem;
   padding: 1rem 2rem;
   margin: 1rem;
-  border-radius: 1.25rem;
-  align-self: center;
   cursor: pointer;
 }
 
@@ -63,8 +62,8 @@ button:hover {
 input {
   color: var(--accent-color);
   font-size: inherit;
-  cursor: caret;
   accent-color: var(--accent-color);
+  cursor: caret;
 }
 
 input:hover {
@@ -76,16 +75,16 @@ input:hover {
 div.heading {
   font-family: "Josefin Sans", sans-serif;
   font-optical-sizing: auto;
-  flex-direction: column;
-  align-items: center;
   background-color: var(--dark-color);
   display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 h1 {
   color: var(--accent-color);
-  padding: 1.5rem;
   text-align: center;
+  padding: 1.5rem;
 }
 
 h2 {
@@ -108,13 +107,13 @@ h2 {
   font-size: 1.2rem;
   background-color: var(--dark-color);
   display: flex;
-  gap: 2rem;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  gap: 2rem;
   border-radius: 3.5rem;
-  padding: 1rem clamp(1.5rem, 3rem, 5.5rem);
   margin: 1rem;
+  padding: 1rem clamp(1.5rem, 3rem, 5.5rem);
   max-width: 800px;
 }
 
@@ -149,21 +148,21 @@ div.char_type_options {
   flex-direction: row;
   justify-content: right;
   align-items: flex-end;
-  padding-top: 1rem;
   gap: 2rem;
+  padding-top: 1rem;
   width: 100%;
 }
 
 /* password length field - slider & ruler*/
 
-/* outer container */
+/* custom outer container */
 div.password_length_span {
   color: var(--accent-color);
   flex-wrap: nowrap;
   gap: 1rem;
 }
 
-/* inner container */
+/* personal inner container */
 div.ruler_slider_container {
   display: flex;
   flex-direction: column;
@@ -174,8 +173,8 @@ div.ruler_slider_container {
   div.ruler {
     display: flex;
     justify-content: space-evenly;
-    width: 100%;
     padding-bottom: 0.25rem;
+    width: 100%;
 
     /* numbered labels */
     small {
@@ -238,23 +237,23 @@ button.close:hover {
 
 .password_container {
   text-align: center;
-  min-width: 90%;
   margin-bottom: 1rem;
+  min-width: 90%;
 }
 
 p.password {
-  background-color: var(--dark-color);
   color: var(--bg-color-light);
   font-size: 2rem;
   letter-spacing: 0.75rem;
   overflow: wrap;
   word-break: break-all;
+  background-color: var(--dark-color);
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 1rem 0.5rem 1rem 1.25rem;
   border: 1px solid var(--accent-color);
   border-radius: 1.5rem;
+  padding: 1rem 0.5rem 1rem 1.25rem;
 }
 
 /* password settings recap */

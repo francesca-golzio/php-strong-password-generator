@@ -1,22 +1,22 @@
 <?php
 
-  // Get random char
+  /* Get random char */
   function getRandomChar($array) {
 
-    // Get random index between 0 and array length
+    // get random index between 0 and array length
     $random_index = rand(0, (count($array) - 1));
 
-    // Get random char from array
+    // get random char from array
     $rando_char = (string)$array[$random_index];
 
     return $rando_char;
 
   }
 
-  // Generate Password
+  /* Generate Password */
   function generatePassword($array) {
 
-    // Get variables from array
+    /* Get variables from array */
 
     // get password length
     $password_length = $array['password_length'] ?? 8;
@@ -25,7 +25,6 @@
     $repeated_chars_allowed = $array['repeated_chars_allowed'] ?? false;
 
     // get requested chars
-    // IF at least one char is requested and true
     $has_requested_chars = (!empty($array['has_requested_chars']) && !empty(array_filter($array['has_requested_chars']))) 
       ? $array['has_requested_chars'] 
       : [
@@ -35,18 +34,18 @@
         'wants_spec_char' => true,
         ];
 
-    // Define password possible characters  
+    /* Define password possible characters */  
     $alpha_low_char = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']; 
     $alpha_up_char = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']; 
     $numb_char = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']; 
     $spec_char = ['@', '#', '!', '?', '_', '*']; 
 
-    // Set variables to empty default
+    /* Set variables to empty default */
     $chars = [];
     $temp_password = [];
     $password = '';
 
-    // add requested chars to chars array
+    /* add requested chars to chars array */
     foreach ($has_requested_chars as $key => $value) {
 
       // IF the user wants_alpha_low_char
@@ -96,11 +95,11 @@
     }
         
 
-    // Get password characters by characters
+    /* Get password character by character */
 
     while (count($temp_password) < $password_length) { 
       
-      // get random char
+      // Get random char
       $random = getRandomChar($chars);
      
       // IF chars must be unique, but char is already in temp_password
@@ -110,7 +109,7 @@
         continue;
       } 
 
-      // add new char to temp_password
+      // Add new char to temp_password
       array_push($temp_password, $random);
 
     }

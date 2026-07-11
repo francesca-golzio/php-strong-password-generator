@@ -1,15 +1,15 @@
 <?php 
 
-  // Open session
+  /* Open session */
   session_start();
 
-  // Declare support variables
+  /* Declare support variables */
   $length_error = '';
 
-  // Save form data into session
+  /* Save form data into session */
   if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-    // save password settings
+    // Save password settings
     $_SESSION['password_settings'] = [
 
       'password_length' => (isset($_POST['password_length']) && (int)$_POST['password_length'] >= 8 && (int)$_POST['password_length'] <= 32) ? (int)$_POST['password_length'] : 8,
@@ -24,7 +24,10 @@
       ]
       
     ];
-    // IF no chars requested use all of them
+
+    /* Check if enouth chars to generate password (password length VS avaiable chars) */
+
+    // Avoid empty char pool
     if (empty(array_filter($_SESSION['password_settings']['has_requested_chars']))) {
       $_SESSION['password_settings']['has_requested_chars'] = [
         'wants_alpha_low_char' => true,
@@ -34,14 +37,13 @@
       ];
     }
 
-    // Guard against infinite loop
-    // if chars must be unique
+    // Avoid lack of chars due to char uniqueness setting
     if($_SESSION['password_settings']['repeated_chars_allowed'] === false) {
 
       // reset chars pool length
       $chars_pool_length = 0;
 
-      // get allowed chars pool length
+      // get actual chars pool length
       foreach(array_filter($_SESSION['password_settings']['has_requested_chars']) as $key => $value) {
          
         if ($key === 'wants_alpha_low_char') $chars_pool_length += 26;
@@ -51,27 +53,31 @@
 
       }
         
-      // show error message
+      // Handle error
+
+      // IF not enough chars to generate password, show error message
       if ($_SESSION['password_settings']['password_length'] > $chars_pool_length) {
 
-      $length_error = 
-        "<dialog class='error_message' open>
-        <p>Not enough characters to generate password.<br><br>
-        <span>Please reduce password length or enable repeated characters.</span>
-        </p>
-        <form method='dialog'>
-          <button class='close'>OK</button>
-        </form>
-        </dialog>";
+        $length_error = 
+          "<dialog class='error_message' open>
+          <p>Not enough characters to generate password.<br><br>
+          <span>Please reduce password length or enable repeated characters.</span>
+          </p>
+          <form method='dialog'>
+            <button class='close'>OK</button>
+          </form>
+          </dialog>";
+
       }
     }
     
+    // IF enough chars to generate password, proceed
     if ($length_error === '') {
       
-      // Certify that form has been submitted
+      /* Certify that form has been submitted */
       $_SESSION['form-submitted'] = true;
       
-      // handle redirect 
+      /* Handle redirect */ 
       header('Location: your-password.php');
       // stop script
       exit;
@@ -97,24 +103,31 @@
   
   <main>
     
-    <div class="outer_container">
-      
+    <div class="outer_container">      
       <div class="container">
         
+        <!-- Show error message (if error) -->
         <?php echo $length_error; ?>
         
+        <!-- Form -->
         <form method="post">
 
+          <!-- Heading -->
           <div class="heading">
             <h1>Password Generator</h1>
           </div>
 
-          <!-- Password Length -->
+          <!-- Password length field -->
           <div class="password_length">
+
             <label for="password_length">How many characters?</label>
+
             <div class="password_length_span">
+
               <span>8</span>
+
               <div class="ruler_slider_container">
+
                 <div class="ruler">
                   <small class="tick">12</small>
                   <small class="tick">16</small>
@@ -122,37 +135,51 @@
                   <small class="tick">24</small>
                   <small class="tick">28</small>
                 </div>
+
                 <input type="range" name="password_length" id="password_length" min="8" max="32" list="ticks" step="1">
+
               </div>
+
               <span>32</span>
+
             </div>
+
           </div>
 
-          <!-- Unique characters? -->
+          <!-- Unique chars? field -->
           <div class="repeated_chars">
 
             <label>Do you want to allow repeated characters?</label>
 
             <div class="repeated_chars_options">
+
               <label for="repeated_chars_yes">
+
                 yes
+
                 <input type="radio" name="repeated_chars_allowed" id="repeated_chars_yes" value="true">
+
               </label>
       
               <label for="repeated_chars_no">
+
                 no
+
                 <input type="radio" name="repeated_chars_allowed" id="repeated_chars_no" value="false">
+
               </label>
+
             </div>
 
           </div>
 
-          <!-- Choose Characters Type -->
+          <!-- Char type fields -->
           <div class="char_type">
 
             <label>Which kind of characters?</label>
               
             <div class="char_type_options">
+
               <!-- a, b, c -->
               <div>
                 <input type="checkbox" name="get_alpha_low_char" id="get_alpha_low_char">
@@ -176,10 +203,12 @@
                 <input type="checkbox" name="get_spec_char" id="get_spec_char">
                 <label for="get_spec_char" aria-label="Special Characters">@ # !</label>
               </div>
+              
             </div>
             
           </div>
           
+          <!-- Submit button -->
           <button type="submit">Generate Password</button>
           
         </form>
@@ -187,7 +216,6 @@
       </div>    
     </div>    
     
-    <!-- <?php var_dump($_SESSION); ?>⚠️ DEBUG ONLY -->
   </main>
   
 </body>

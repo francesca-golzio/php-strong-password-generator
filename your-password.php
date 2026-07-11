@@ -1,57 +1,59 @@
 <?php
 
-// Resume session
-session_start();
+  /* Resume session */
+  session_start();
 
-// If origin differs from form submission
-if(!isset($_SESSION['form-submitted'])) {
+  /* Origin safety check */
+  // IF origin is not form submission
+  if(!isset($_SESSION['form-submitted'])) {
 
-  // redirect to form
-  header('Location: index.php');
+    // Redirect to form
+    header('Location: index.php');
 
-  // stop script
-  exit;
-} 
+    // Stop script
+    exit;
+  } 
 
-// get password settings
-$password_settings = $_SESSION['password_settings'] 
-  ?? [
-      'password_length' => 8,
-      'repeated_chars_allowed' => false,
-      'has_requested_chars' => [
-        'wants_alpha_low_char' => true,
-        'wants_alpha_up_char' => true,
-        'wants_numb_char' => true,
-        'wants_spec_char' => true,
-      ],
+  /* Get password settings (or default) */
+  $password_settings = $_SESSION['password_settings'] 
+    ?? [
+        'password_length' => 8,
+        'repeated_chars_allowed' => false,
+        'has_requested_chars' => [
+          'wants_alpha_low_char' => true,
+          'wants_alpha_up_char' => true,
+          'wants_numb_char' => true,
+          'wants_spec_char' => true,
+        ],
+      ];
+
+
+  /* Save usefull variables (or default) */
+  
+  // Repeated chars: allowed?
+  $repeated_chars_allowed = $password_settings['repeated_chars_allowed'] ?? false;
+
+  // Requested chars
+  $has_requested_chars = (!empty($password_settings['has_requested_chars']) && !empty(array_filter($password_settings['has_requested_chars']))) 
+  ? $password_settings['has_requested_chars'] 
+  : [
+    'wants_alpha_low_char' => true,
+    'wants_alpha_up_char' => true,
+    'wants_numb_char' => true,
+    'wants_spec_char' => true,
     ];
 
-// get password length
-// $password_length = $password_settings['password_length'] ?? 8;
 
-// get repeated chars allowed ?
-$repeated_chars_allowed = $password_settings['repeated_chars_allowed'] ?? false;
+  /* Generate password */
 
-// get requested chars
-// IF at least one char is requested and true
-$has_requested_chars = (!empty($password_settings['has_requested_chars']) && !empty(array_filter($password_settings['has_requested_chars']))) 
-? $password_settings['has_requested_chars'] 
-: [
-  'wants_alpha_low_char' => true,
-  'wants_alpha_up_char' => true,
-  'wants_numb_char' => true,
-  'wants_spec_char' => true,
-  ];
+  // Get password generator function `generatePassword()`
+  require __DIR__ . '/functions.php';
 
-// Get password generator function `generatePassword()
-require __DIR__ . '/functions.php';
+  // Store password into a variable
+  $password = generatePassword($password_settings);
 
-// Store password into a variable
-$password = generatePassword($password_settings);
-
-// Set support variable
-$has_length = strlen($password) > 0;
-  
+  // Set support variable (rendering length)
+  $has_length = strlen($password) > 0;
 
 ?>
 
@@ -69,38 +71,39 @@ $has_length = strlen($password) > 0;
 <body>
   
   <main>
-    <!-- ⚠️ DA STRINGERE TROPPO LARGO -->
-    <!-- ⚠️ DA SPAZIARE -->    
     
     <div class="outer_container">
-
       <div class="container">
         
+        <!-- Heading -->
         <div class="heading">
           <h1>Password Generator</h1>
           <h2>Get Your New Password!</h2>
         </div>
         
+        <!-- Password container -->
         <div class="password_container">
-
           <p id="password" class="password">
             <?php echo $has_length ? $password : '<small>-- password will be printed here --</small>' ?>
           </p> 
-
-
         </div>
   
+        <!-- Password settings recap -->
         <div class="password_settings">
           <p class='password_settings_recap'>
-            <?php             
+            <?php
+
+              /* Render password length */
               echo $has_length
                 ? "<span> " . strlen($password)
                 : "";
             
+              /* Render repeated chars preference */
               echo $repeated_chars_allowed
                 ? " chars</span><br>"                   
                 : " unique chars</span><br>";
   
+              /* Render requested chars */
               if ($has_requested_chars) {  
                 foreach($has_requested_chars as $key => $value) {
                   
@@ -126,7 +129,8 @@ $has_length = strlen($password) > 0;
             ?>
                   
           </p>
-                      
+                     
+          <!-- Disclaimer -->
           <p class='note'>
             Note: 
             <br>• If repeated chars preference hasn't been selected, 'not allowed' is applied by default.
@@ -136,7 +140,6 @@ $has_length = strlen($password) > 0;
         </div>
 
       </div>
-
     </div> 
 
   </main>
