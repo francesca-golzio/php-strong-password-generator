@@ -138,8 +138,8 @@
           <!-- Disclaimer -->
           <p class='note'>
             Note: 
-            <br>• If repeated characters preference hasn't been selected, 'not allowed' is applied by default.
-            <br>• If no character type has been selected, all characters types are applied by default.
+            <br>• If no preference forrepeated characters has been selected, 'not allowed' is applied.
+            <br>• If no character type has been selected, all character types are applied.
           </p>
   
         </div>
