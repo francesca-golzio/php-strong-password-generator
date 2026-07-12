@@ -85,6 +85,7 @@ h1 {
   color: var(--accent-color);
   text-align: center;
   padding: 1.5rem;
+  padding-top: 0;
 }
 
 h2 {
@@ -114,6 +115,7 @@ h2 {
   border-radius: 3.5rem;
   margin: 1rem;
   padding: 1rem clamp(1.5rem, 3rem, 5.5rem);
+  padding-top: 2.5rem;
   max-width: 800px;
 }
 
@@ -232,6 +234,22 @@ button.close:hover {
 }
 
 /* __ your_password.php __ */
+
+/* Navigation */
+
+nav {
+  display: flex;
+  flex-direction: row;
+  justify-content: left;
+  align-items: top;
+  width: 100%;
+}
+
+a {
+  color: var(--bg-color-light);
+  font-size: 0.8rem;
+  text-decoration: none;
+}
 
 /* Password section */
 

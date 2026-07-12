@@ -74,6 +74,11 @@
     
     <div class="outer_container">
       <div class="container">
+
+        <!-- Back button -->
+        <nav>
+          <a href="index.php">&larr; back to form</a>
+        </nav>
         
         <!-- Heading -->
         <div class="heading">
